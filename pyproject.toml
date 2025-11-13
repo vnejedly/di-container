@@ -3,7 +3,7 @@ name = "di_container"
 version = "0.1.0"
 description = "Dependency Injection Container for Inversion of Control"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 license = { text = "MIT" }
 authors = [{ name = "Vladislav Nejedly", email = "vladislav.nejedly@gmail.com" }]
 
