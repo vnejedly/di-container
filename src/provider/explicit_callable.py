@@ -1,6 +1,6 @@
 from typing import Any, Callable, Type
 from di_tree.provider.abc_provider import AbcProvider
-from di_tree.inject import TypeInject
+from di_tree.inject import Inject
 
 
 class ExplicitCallable(AbcProvider):
@@ -11,8 +11,8 @@ class ExplicitCallable(AbcProvider):
         super().__init__(dependency_type, creator)
         self._instance = None
 
-    def provide(self, inject_params: TypeInject = TypeInject()) -> Any:
-        if inject_params.unique_instance:
+    def provide(self, inject: Inject) -> Any:
+        if inject.unique_instance:
             return self._create_instance()
 
         if self._instance is None:

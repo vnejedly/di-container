@@ -1,7 +1,7 @@
 from __future__ import annotations
 from typing import Any, Type, TYPE_CHECKING
 from di_tree.provider.abc_provider_interface import AbcProviderInterface
-from di_tree.inject import TypeInject
+from di_tree.inject import Inject
 
 if TYPE_CHECKING:
     from di_tree.abc_container import AbcContainer
@@ -17,8 +17,10 @@ class Alias(AbcProviderInterface):
         self._alias_class = alias_type
         self._target_class = target_type
 
-    def provide(self, inject_params: TypeInject = TypeInject) -> Any:
-        return self._container.get_by_type(self._target_class, inject_params)
+    def provide(self, inject: Inject) -> Any:
+        return self._container.get_dependency(
+            inject=inject, dependency_type=self._target_class,
+        )
 
     def get_dependency_type(self) -> Type:
         return self._alias_class

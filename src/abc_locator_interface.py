@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Type
-from di_tree.inject import TypeInject
+from typing import Type, Any
+from di_tree.inject import Inject
 
 
 class AbcLocatorInterface(ABC):
@@ -8,6 +8,14 @@ class AbcLocatorInterface(ABC):
     @abstractmethod
     def get_by_type[DependencyType](
         self, dependency_type: Type[DependencyType], 
-        inject_params: TypeInject = TypeInject(),
+        unique_instance: bool = False,
+        default_implementation: Type | None = None,
     ) -> DependencyType:
+        pass
+        
+    @abstractmethod
+    def get_by_name(
+        self, dependency_name: str, 
+        default_value: Any = None,
+    ) -> Any:
         pass

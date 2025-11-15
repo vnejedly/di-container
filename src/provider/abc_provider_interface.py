@@ -1,7 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import Any, Type, TYPE_CHECKING
-from di_tree.inject import TypeInject
+from di_tree.inject import Inject
 
 if TYPE_CHECKING:
     from di_tree.abc_container import AbcContainer
@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 class AbcProviderInterface(ABC):
 
     @abstractmethod
-    def provide(self, inject_params: TypeInject = TypeInject()) -> Any:
+    def provide(self, inject: Inject) -> Any:
         pass
 
     @abstractmethod

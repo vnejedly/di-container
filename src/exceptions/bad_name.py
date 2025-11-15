@@ -1,6 +1,3 @@
-from typing import Type
-
-
 class BadNameException(Exception):
 
     def __init__(self, dependency_name: str):
