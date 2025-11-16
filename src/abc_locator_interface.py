@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from typing import Type, Any
-from di_tree.inject import Inject
 
 
 class AbcLocatorInterface(ABC):

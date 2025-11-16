@@ -1,6 +1,5 @@
 from typing import Type, Any
 from di_tree.provider.explicit_callable import ExplicitCallable
-from di_tree.provider.abc_provider import AbcProvider
 import importlib
 
 

@@ -31,28 +31,28 @@ class AbcContainer(AbcLocatorInterface, ABC):
         self._providers_name[name] = provider
 
     def get_by_type[DependencyType](
-        self, dependency_type: Type[DependencyType], 
+        self, dependency_type: Type[DependencyType],
         unique_instance: bool = False,
         default_implementation: Type | None = None,
     ) -> DependencyType:
         return self.get_dependency(
-            dependency_type=dependency_type, 
+            dependency_type=dependency_type,
             inject=TypeInject(unique_instance, default_implementation),
         )
         
     def get_by_name(
-        self, dependency_name: str, 
+        self, dependency_name: str,
         default_value: Any = None,
     ) -> Any:
         return self.get_dependency(
-            dependency_name=dependency_name, 
+            dependency_name=dependency_name,
             inject=NameInject(default_value)
         )
 
     def get_dependency(
         self, inject: Inject,
         dependency_type: Type = Any,
-        dependency_name: str | None = None, 
+        dependency_name: str | None = None,
     ) -> Any:
         match inject.method:
             case Inject.Method.BY_TYPE:
@@ -64,7 +64,7 @@ class AbcContainer(AbcLocatorInterface, ABC):
                 except TypeError:
                     default_implementation = inject.default_implementation
                     if default_implementation is None:
-                        raise AbcInstanceException(dependency_type)
+                        raise
                     default_repr = self._get_dependency_repr(default_implementation)
                     if default_repr not in self._providers_repr.keys():
                         self.set_provider(AutoResolve(default_implementation))

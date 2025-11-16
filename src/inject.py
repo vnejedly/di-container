@@ -18,9 +18,7 @@ class Inject(ABC):
     default_value: Any
 
     def __init__(self):
-        raise Exception(
-            "Not for direct instantiation, use TypeInject or NameInject"
-        )
+        raise Exception("Use TypeInject or NameInject")
 
 
 class TypeInject(Inject):
