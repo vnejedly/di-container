@@ -4,8 +4,12 @@ from di_tree.inject import Inject
 from di_tree.exceptions.bad_type import BadTypeException
 from di_tree.exceptions.not_callable import NotCallableException
 from di_tree.provider.abc_provider_interface import AbcProviderInterface
-from typing import Any, Type, Callable, TYPE_CHECKING
 from abc import ABC
+
+from typing import (
+    Any, Type, Callable, Annotated, 
+    get_type_hints, get_origin, get_args, TYPE_CHECKING
+)
 
 if TYPE_CHECKING:
     from di_tree.abc_container import AbcContainer
@@ -35,18 +39,21 @@ class AbcProvider(AbcProviderInterface, ABC):
             dependencies = {}
 
         instance_type = type(instance)
-        for dependency_name, dependency_type in instance_type.__annotations__.items():
-            inject = getattr(instance_type, dependency_name, None)
-            if isinstance(inject, Inject):
-                inject.set_dependency_id(dependency_type, dependency_name)
-                dependency_instance = self._container.get_dependency(inject)
+        annotations = get_type_hints(instance_type, include_extras=True)
 
-                setattr(instance, dependency_name, dependencies.get(
-                    dependency_name, dependency_instance
-                ))
+        for dependency_name, annotation in annotations.items():
+            if get_origin(annotation) == Annotated:
+                dependency_type, inject = get_args(annotation)
+                if (isinstance(dependency_type, Type) and isinstance(inject, Inject)):
+                    inject.set_dependency_id(dependency_type, dependency_name)
+                    dependency_instance = dependencies.get(dependency_name)
+                    if not dependency_instance:
+                        dependency_instance = self._container.get_dependency(inject)
 
-    def _create_instance(self) -> Any:
-        instance = self._creator(self)
+                    setattr(instance, dependency_name, dependency_instance)
+
+    def _create_instance(self, inject: Inject) -> Any:
+        instance = self._creator(self, inject)
         type_provided = type(instance)
         if type_provided != self._dependency_type:
             raise BadTypeException(self._dependency_type, type_provided)

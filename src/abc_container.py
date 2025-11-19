@@ -3,7 +3,6 @@ from typing import Dict, Type, Any
 from di_tree.abc_locator_interface import AbcLocatorInterface
 from di_tree.provider.abc_provider_interface import AbcProviderInterface
 from di_tree.provider.auto_resolve import AutoResolve
-from di_tree.exceptions.abc_instance import AbcInstanceException
 from di_tree.exceptions.bad_name import BadNameException
 from di_tree.inject import Inject, TypeInject, NameInject
 
@@ -22,12 +21,12 @@ class AbcContainer(AbcLocatorInterface, ABC):
     def setup(self):
         """Setup dependences in implementation"""
 
-    def set_provider(self, provider: AbcProviderInterface):
+    def provider(self, provider: AbcProviderInterface):
         type_repr = self._get_type_repr(provider.get_dependency_type())
         self._providers_type[type_repr] = provider
         provider.set_container(self)
 
-    def set_named_provider(self, name: str, provider: AbcProviderInterface):
+    def named_provider(self, name: str, provider: AbcProviderInterface):
         self._providers_name[name] = provider
 
     def get_by_type[DependencyType](
@@ -53,7 +52,7 @@ class AbcContainer(AbcLocatorInterface, ABC):
             case Inject.Method.BY_TYPE:
                 type_repr = self._get_type_repr(inject.dependency_type)
                 if type_repr not in self._providers_type.keys():
-                    self.set_provider(AutoResolve(inject.dependency_type))
+                    self.provider(AutoResolve(inject.dependency_type))
                 try:
                     return self._providers_type.get(type_repr).provide(inject)
                 except TypeError:
@@ -62,7 +61,7 @@ class AbcContainer(AbcLocatorInterface, ABC):
                         raise
                     default_repr = self._get_type_repr(default_implementation)
                     if default_repr not in self._providers_type.keys():
-                        self.set_provider(AutoResolve(default_implementation))
+                        self.provider(AutoResolve(default_implementation))
                     return self._providers_type.get(default_repr).provide(inject)
             case Inject.Method.BY_NAME:
                 if inject.dependency_name not in self._providers_name.keys():
