@@ -1,6 +1,6 @@
 [project]
 name = "depydency"
-version = "1.0.3"
+version = "1.0.4"
 description = "Dependency Injection Container for Inversion of Control"
 readme = "README.md"
 license = { file = "LICENSE" }
