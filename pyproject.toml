@@ -1,7 +1,7 @@
 [project]
 name = "depydency"
-version = "1.0.4"
-description = "Dependency Injection Container for Inversion of Control"
+version = "1.0.5"
+description = "Dependency Injection (DI) Container for Inversion of Control (IoC) and automatic dependency tree resolution"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
