@@ -1,4 +1,6 @@
-# Depydency 
+<p align="left">
+  <img src="https://raw.githubusercontent.com/vnejedly/depydency/refs/heads/main/docs/logo.png" alt="depydency logo" width="200"/>
+</p>
 
 ## Dependency Injection (DI) container and Inversion Of Control (IoC) helper library
 
