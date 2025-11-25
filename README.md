@@ -13,7 +13,7 @@ A lightweight IoC (inversion of control) and DI (dependency-injection) container
 1. Installation
 2. Concepts
 3. Basic usage
-4. Cantainer setup & Providers
+4. Container setup & Providers
 5. `TypeInject` & `NameInject` annotations
 6. Usage example
 
@@ -32,10 +32,10 @@ pip install depydency
 - Container: holds various dependency providers.
 
 - Provider: an object that knows how to produce the value/instance for a particular dependency ba type or name.
-    - Alias: map an interface/abstract type to a concrete implementation.
-    - ExplicitValue: always return the given instance/value.
-    - ExplicitCallable: call a factory function to produce the instance.
-    - AutoResolve: FOR INTERNAL USAGE ONLY - (when available) try to construct a type automatically.
+    - `Value`: always return the given instance/value.
+    - `Callback`: call a factory function to produce the instance.
+    - `Alias`: map an interface/abstract type to a concrete implementation.
+    - `AutoResolve`: FOR INTERNAL USAGE ONLY - (when available) try to construct a type automatically.
 ---
 
 ### Basic usage
@@ -43,7 +43,7 @@ pip install depydency
 The class AbcContainer is to be extended by a child class, which contains the particular container configuration. The method `setup` must be implemented (empty in the case of minimal configuration). In the entrypoint / front controller of your application, just create an intance of this child (inherited from the AbcContainer) class and get the "root service" of your dependency tree, either by get_by_type or get_by_name bethod. You will just get the instance of your class, with whole dependency tree resolved automatically by default, or customized through the container `setup` method.
 
 
-### Cantainer setup & Providers
+### Container setup & Providers
 
 In the container `setup` method you can pass so called "providers", which are special classes having responsibility for creating the instance of each of your dependencies. By default with no particular provider configured, the `AutoResolve` provider will be used internally for creating instance of each of your dependencies out of the box. If you want to customize the instantiation of any of your dependencies, you can pass a provider by calling one of the methods `provide_type` or `provine_name`. You can use
 
@@ -52,7 +52,7 @@ In the container `setup` method you can pass so called "providers", which are sp
 - `Alias` especially useful, when your dependency is defined by an abstract class or interface and so the container setup must decide, which concrete implementation will be provided for the abc class demanded. This is the core of the IoC (Inversion of Control) concept. Not the dependent class itself, but the app configuration thus decides about the particular dependency implementation. The particular implementation (the target class) can be either autoresolved, or provided by one of the methods above.
 
 
-### TypeInject & NameInject annotations
+### `TypeInject` & `NameInject` annotations
 
 This is the key point of whole the dependency injection. In each of the class from your dependency tree, you have to mark all its dependencies by the special annotation:
 
