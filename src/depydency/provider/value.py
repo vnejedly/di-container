@@ -4,6 +4,7 @@ from depydency.inject import Inject
 
 
 class Value(AbcProvider):
+    """Provides the dependency instance passed explicitly in constructor."""
     def __init__(self, value: Any):
         self._value = value
 

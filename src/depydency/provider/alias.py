@@ -4,6 +4,10 @@ from depydency.inject import Inject
 
 
 class Alias(AbcProvider):
+    """Define an alias type, which should be resolved when a particular
+    type is requested. Especially suitable for configuring a particular
+    implementation for an abstraction demanded by a client object.
+    """
     _alias_type: Type
     _target_type: Type
 

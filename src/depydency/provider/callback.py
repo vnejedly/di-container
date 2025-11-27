@@ -6,6 +6,7 @@ CreatorCallable = Callable[[AbcCreator, Inject], Any]
 
 
 class Callback(AbcCreator):
+    """Provides the dependency using a custom callable"""
     def __init__(self, dependency_type: Type, creator_callable: CreatorCallable):
         assert callable(creator_callable), "Pass a callable"
 

@@ -3,6 +3,7 @@ from typing import Type, Any
 
 
 class AbcLocatorInterface(ABC):
+    """Defines an interface for a general dependency locator"""
 
     @abstractmethod
     def get_by_type[DependencyType](
@@ -10,7 +11,7 @@ class AbcLocatorInterface(ABC):
         unique_instance: bool = False,
         default_implementation: Type | None = None,
     ) -> DependencyType:
-        pass
+        """Get the root dependency by type inside your script entry-point"""
         
     @abstractmethod
     def get_by_name(
@@ -18,4 +19,4 @@ class AbcLocatorInterface(ABC):
         unique_instance: bool = False,
         default_value: Any = None,
     ) -> Any:
-        pass
+        """Get the root dependency by name inside your script entry-point"""

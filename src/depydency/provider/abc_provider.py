@@ -8,18 +8,21 @@ if TYPE_CHECKING:
 
 
 class AbcProvider(ABC):
+    """An abstraction for all dependency providers."""
     _container: AbcContainer
 
     @abstractmethod
     def provide(self, inject: Inject) -> Any:
-        pass
+        """Provide an instance of the dependency."""
 
     @abstractmethod
     def get_dependency_type(self) -> Type:
-        pass
+        """Returns the type of the dependency defined by the provider"""
 
     def get_container(self) -> AbcContainer:
+        """Getter for the container."""
         return self._container
 
     def set_container(self, container: AbcContainer):
+        """Seter for the container."""
         self._container = container

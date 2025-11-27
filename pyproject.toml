@@ -1,9 +1,9 @@
 [project]
 name = "depydency"
-version = "1.0.9"
+version = "1.0.10"
 description = "Dependency Injection (DI) Container for Inversion of Control (IoC) and automatic dependency tree resolution"
 readme = "README.md"
-license = { file = "LICENSE" }
+license-files = ["LICENSE"]
 requires-python = ">=3.10"
 authors = [{ name = "Vladislav Nejedly", email = "vladislav.nejedly@gmail.com" }]
 

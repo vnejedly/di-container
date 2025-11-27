@@ -8,6 +8,9 @@ from typing import Any, Type, Annotated, get_type_hints, get_origin, get_args
 
 
 class AbcCreator(AbcProvider, ABC):
+    """An abstraction for all providers, which use the creator method for
+    creation the dpendency instance.
+    """
     _dependency_type: Type
     _instance: Any
 
@@ -24,6 +27,9 @@ class AbcCreator(AbcProvider, ABC):
         return self._instance
 
     def inject_dependencies(self, instance: Any, dependencies: Dict[str, Any] = {}):
+        """Inject dependencies to the client object, which has been already created.
+        Use the dependencies parameter, if you wand to provide some of them manually.
+        """
         instance_type = type(instance)
         annotations = get_type_hints(instance_type, include_extras=True)
         
@@ -43,6 +49,7 @@ class AbcCreator(AbcProvider, ABC):
                     setattr(instance, dependency_name, dependency_instance)
 
     def _create_instance(self, inject: Inject) -> Any:
+        """Create new instance of the dependency based on inject configuration."""
         instance = self._creator(inject)
         type_provided = type(instance)
         if type_provided != self._dependency_type:
@@ -52,4 +59,5 @@ class AbcCreator(AbcProvider, ABC):
 
     @abstractmethod
     def _creator(self, inject: Inject) -> Any:
+        """The particular instance creation defined by on of the child objects"""
         pass
