@@ -27,13 +27,14 @@ class AbcContainer(AbcLocatorInterface, ABC):
 
     def provide_type(self, provider: AbcProvider):
         """Setup provider to provide dependency by type"""
-        type_repr = self._get_type_repr(provider.get_dependency_type())
+        type_repr = self._get_type_repr(provider.dependency_type)
         self._providers_type[type_repr] = provider
         provider.set_container(self)
 
     def provide_name(self, name: str, provider: AbcProvider):
         """Setup provider to provide dependency by name"""
         self._providers_name[name] = provider
+        provider.set_container(self)
 
     def get_by_type[DependencyType](
         self, dependency_type: Type[DependencyType],

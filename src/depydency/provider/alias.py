@@ -16,9 +16,11 @@ class Alias(AbcProvider):
         self._alias_type = alias_type
         self._target_type = target_type
 
+    @property
+    def dependency_type(self) -> Type:
+        return self._alias_type
+
     def provide(self, inject: Inject) -> Any:
         inject.set_dependency_id(dependency_type=self._target_type)
-        return self._container.get_dependency(inject)
+        return self.container.get_dependency(inject)
 
-    def get_dependency_type(self) -> Type:
-        return self._alias_type

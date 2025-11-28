@@ -14,7 +14,8 @@ class AbcCreator(AbcProvider, ABC):
     _dependency_type: Type
     _instance: Any
 
-    def get_dependency_type(self) -> Type:
+    @property
+    def dependency_type(self) -> Type:
         return self._dependency_type
 
     def provide(self, inject: Inject) -> Any:
@@ -41,7 +42,7 @@ class AbcCreator(AbcProvider, ABC):
                     dependency_instance = dependencies.get(dependency_name)
                     
                     if not dependency_instance:
-                        dependency_instance = self._container.get_dependency(inject)
+                        dependency_instance = self.container.get_dependency(inject)
                     elif not isinstance(dependency_instance, inject.dependency_type):
                         raise BadTypeException(
                             inject.dependency_type, type(dependency_instance)

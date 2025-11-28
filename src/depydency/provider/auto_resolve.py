@@ -13,8 +13,8 @@ class AutoResolve(AbcCreator):
         self._instance = None
 
     def _creator(self, inject: Inject) -> Any:
-        module = importlib.import_module(self.get_dependency_type().__module__)
-        dependency_type = getattr(module, self.get_dependency_type().__name__)
+        module = importlib.import_module(self.dependency_type.__module__)
+        dependency_type = getattr(module, self.dependency_type.__name__)
         
         instance = dependency_type()
         self.inject_dependencies(instance)
