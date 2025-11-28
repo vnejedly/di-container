@@ -36,7 +36,7 @@ class Inject(ABC):
 
 class TypeInject(Inject):
     """Use for tagging a dependency, which should be resolved by type
-    and for seting up all client-defined configurations
+    and for setting up all client-defined configurations
     """
     def __init__(
         self,
@@ -50,7 +50,7 @@ class TypeInject(Inject):
 
 class NameInject(Inject):
     """Use for tagging a dependency, which should be resolved by name
-    and for seting up all client-defined configurations
+    and for setting up all client-defined configurations
     """
     def __init__(
         self,

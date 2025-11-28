@@ -17,7 +17,7 @@ class AbcProvider(ABC):
 
     @abstractmethod
     def get_dependency_type(self) -> Type:
-        """Returns the type of the dependency defined by the provider"""
+        """Return the type of the dependency to be provided"""
 
     def get_container(self) -> AbcContainer:
         """Getter for the container."""

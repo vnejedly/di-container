@@ -28,7 +28,7 @@ class AbcCreator(AbcProvider, ABC):
 
     def inject_dependencies(self, instance: Any, dependencies: Dict[str, Any] = {}):
         """Inject dependencies to the client object, which has been already created.
-        Use the dependencies parameter, if you wand to provide some of them manually.
+        Pass a dependencies dictionary, if you want to provide some of them manually.
         """
         instance_type = type(instance)
         annotations = get_type_hints(instance_type, include_extras=True)
@@ -59,5 +59,5 @@ class AbcCreator(AbcProvider, ABC):
 
     @abstractmethod
     def _creator(self, inject: Inject) -> Any:
-        """The particular instance creation defined by on of the child objects"""
+        """The particular instance method creation defined by the extension class"""
         pass

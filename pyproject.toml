@@ -1,6 +1,6 @@
 [project]
 name = "depydency"
-version = "1.0.10"
+version = "1.0.11"
 description = "Dependency Injection (DI) Container for Inversion of Control (IoC) and automatic dependency tree resolution"
 readme = "README.md"
 license-files = ["LICENSE"]

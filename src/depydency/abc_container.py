@@ -10,8 +10,8 @@ from depydency.inject import Inject, TypeInject, NameInject
 
 class AbcContainer(AbcLocatorInterface, ABC):
     """The core DI container class. Holds all dependencies configuration and
-    is responsible for the resursive resolution of whole the dependency tree.
-    Must be extended to work properly and for the (opptional) configuration.
+    is responsible for the resursive resolution of the whole dependency tree.
+    Must be extended to work properly and for the (optional) configuration.
     """
     _providers_type: Dict[str, AbcProvider]
     _providers_name: Dict[str, AbcProvider]
@@ -23,7 +23,7 @@ class AbcContainer(AbcLocatorInterface, ABC):
 
     @abstractmethod
     def setup(self):
-        """Setup dependences in implementation"""
+        """Setup dependences in the extension class"""
 
     def provide_type(self, provider: AbcProvider):
         """Setup provider to provide dependency by type"""
@@ -40,7 +40,7 @@ class AbcContainer(AbcLocatorInterface, ABC):
         unique_instance: bool = False,
         default_implementation: Type | None = None,
     ) -> DependencyType:
-        """Get the root dependency by type inside your script entry-point"""
+        """Get the root dependency by type inside your program entry-point"""
         inject = TypeInject(unique_instance, default_implementation)
         inject.set_dependency_id(dependency_type=dependency_type)
         return self.get_dependency(inject)
@@ -50,7 +50,7 @@ class AbcContainer(AbcLocatorInterface, ABC):
         unique_instance: bool = False,
         default_value: Any = None
     ) -> Any:
-        """Get the root dependency by name inside your script entry-point"""
+        """Get the root dependency by name inside your program entry-point"""
         inject = NameInject(unique_instance, default_value)
         inject.set_dependency_id(dependency_name=dependency_name)
         return self.get_dependency(inject)

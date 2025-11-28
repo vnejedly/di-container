@@ -4,9 +4,10 @@ from depydency.inject import Inject
 
 
 class Alias(AbcProvider):
-    """Define an alias type, which should be resolved when a particular
-    type is requested. Especially suitable for configuring a particular
-    implementation for an abstraction demanded by a client object.
+    """Fulfills the IoC (Inversion of Control) principle.
+    Defines a target type, which will be provided, when the alias type 
+    is requested. Intended for configuring particular implementations
+    for abstract dependencies requested across the dependency tree.
     """
     _alias_type: Type
     _target_type: Type
